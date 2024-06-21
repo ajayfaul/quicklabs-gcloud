@@ -79,6 +79,8 @@ EOF
 
 gcloud builds submit . -t $REGION-docker.pkg.dev/${PROJECT_ID}/artifact-scanning-repo/sample-image
 
+sleep 20
+
 cat > ./vulnz_note.json << EOM
 {
   "attestation": {
@@ -136,6 +138,8 @@ curl -X POST  \
     --data-binary @./iam_request.json \
     "https://containeranalysis.googleapis.com/v1/projects/${PROJECT_ID}/notes/${NOTE_ID}:setIamPolicy"
 
+sleep 20
+
 KEY_LOCATION=global
 KEYRING=binauthz-keys
 KEY_NAME=codelab-key
@@ -158,6 +162,8 @@ gcloud beta container binauthz attestors public-keys add  \
 
 gcloud container binauthz attestors list
 
+sleep 20
+
 CONTAINER_PATH=$REGION-docker.pkg.dev/${PROJECT_ID}/artifact-scanning-repo/sample-image
 
 DIGEST=$(gcloud container images describe ${CONTAINER_PATH}:latest \
@@ -176,6 +182,8 @@ gcloud beta container binauthz attestations sign-and-create  \
 gcloud container binauthz attestations list \
    --attestor=$ATTESTOR_ID --attestor-project=${PROJECT_ID}
 
+sleep 20
+
 gcloud beta container clusters create binauthz \
     --zone $ZONE  \
     --binauthz-evaluation-mode=PROJECT_SINGLETON_POLICY_ENFORCE
@@ -189,6 +197,8 @@ gcloud container binauthz policy export
 kubectl run hello-server --image gcr.io/google-samples/hello-app:1.0 --port 8080
 
 kubectl get pods
+
+sleep 30
 
 kubectl delete pod hello-server
 
@@ -219,6 +229,8 @@ name: projects/$PROJECT_ID/policy
 EOM
 
 gcloud container binauthz policy import policy.yaml
+
+sleep 20
 
 gcloud projects add-iam-policy-binding ${PROJECT_ID} \
   --member serviceAccount:${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com \
@@ -283,12 +295,12 @@ steps:
 
 
 images:
-  - "$REGION-docker.pkg.dev/${PROJECT_ID}/artifact-scanning-repo/sample-image:good
+  - $REGION-docker.pkg.dev/${PROJECT_ID}/artifact-scanning-repo/sample-image:good
 EOF
 
 gcloud builds submit
 
-sleep 20
+sleep 30
 
 COMPUTE_ZONE=$REGION
 
@@ -354,7 +366,7 @@ EOM
 
 kubectl apply -f deploy.yaml
 
-sleep 10
+sleep 20
 
 docker build -t $REGION-docker.pkg.dev/${PROJECT_ID}/artifact-scanning-repo/sample-image:bad .
 
