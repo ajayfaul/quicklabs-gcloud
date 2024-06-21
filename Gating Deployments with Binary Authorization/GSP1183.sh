@@ -290,7 +290,7 @@ gcloud builds submit
 
 sleep 20
 
-COMPUTE_ZONE="REGION"
+COMPUTE_ZONE=$REGION
 
 cat > binauth_policy.yaml << EOM
 defaultAdmissionRule:
