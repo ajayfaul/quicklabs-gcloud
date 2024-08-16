@@ -1,6 +1,6 @@
-docker build -t us-west1-docker.pkg.dev/${PROJECT_ID}/artifact-scanning-repo/sample-image:bad .
+docker build -t "REGION"-docker.pkg.dev/${PROJECT_ID}/artifact-scanning-repo/sample-image:bad .
 
-docker push us-west1-docker.pkg.dev/${PROJECT_ID}/artifact-scanning-repo/sample-image:bad
+docker push "REGION"-docker.pkg.dev/${PROJECT_ID}/artifact-scanning-repo/sample-image:bad
 
 CONTAINER_PATH=us-west1-docker.pkg.dev/${PROJECT_ID}/artifact-scanning-repo/sample-image
 

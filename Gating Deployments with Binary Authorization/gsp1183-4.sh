@@ -1,4 +1,4 @@
-CONTAINER_PATH=us-west1-docker.pkg.dev/${PROJECT_ID}/artifact-scanning-repo/sample-image
+CONTAINER_PATH="REGION"-docker.pkg.dev/${PROJECT_ID}/artifact-scanning-repo/sample-image
 
 DIGEST=$(gcloud container images describe ${CONTAINER_PATH}:latest \
     --format='get(image_summary.digest)')

@@ -1,5 +1,5 @@
 gcloud beta container clusters create binauthz \
-    --zone us-west1-c  \
+    --zone us-central1-c  \
     --binauthz-evaluation-mode=PROJECT_SINGLETON_POLICY_ENFORCE
 
 gcloud projects add-iam-policy-binding ${PROJECT_ID} \

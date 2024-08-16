@@ -16,10 +16,10 @@ gcloud services enable \
 
 gcloud artifacts repositories create artifact-scanning-repo \
   --repository-format=docker \
-  --location=us-west1 \
+  --location="REGION"\
   --description="Docker repository"
 
-gcloud auth configure-docker us-west1-docker.pkg.dev
+gcloud auth configure-docker "REGION"-docker.pkg.dev
 
 mkdir vuln-scan && cd vuln-scan
 
@@ -54,4 +54,4 @@ if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
 EOF
 
-gcloud builds submit . -t us-west1-docker.pkg.dev/${PROJECT_ID}/artifact-scanning-repo/sample-image
+gcloud builds submit . -t "REGION"-docker.pkg.dev/${PROJECT_ID}/artifact-scanning-repo/sample-image
